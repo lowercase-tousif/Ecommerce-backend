@@ -3,7 +3,7 @@ const app = express();
 const xssClean = require("xss-clean");
 const rateLimit = require("express-rate-limit");
 const morgan = require("morgan");
-
+const userRoute = require("./routes/userRoute");
 // Self made middlewares
 const rateLimiter = rateLimit({
   windowMs: 1 * 60 * 1000,
@@ -15,6 +15,9 @@ const rateLimiter = rateLimit({
 app.use(morgan("dev"));
 app.use(rateLimiter);
 app.use(xssClean());
+
+// userlist route Demo
+app.use("/api/user", userRoute);
 
 // basic route
 app.get("/", (req, res, next) => {
