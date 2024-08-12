@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const { imagePath } = require("../secret");
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -30,8 +31,7 @@ const userSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      default:
-        "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png",
+      default: imagePath,
     },
     phone: {
       type: String,
