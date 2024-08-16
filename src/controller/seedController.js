@@ -19,4 +19,4 @@ const seedUser = async (req, res, next) => {
   }
 };
 
-module.exports = { seedUsers };
+module.exports = { seedUser };

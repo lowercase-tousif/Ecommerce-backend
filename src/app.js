@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const createError = require("http-errors");
 // All routes imports here
 const userRoute = require("./routes/userRoute");
+const seedRoute = require("./routes/seedRouter");
 
 // Self made middlewares
 const rateLimiter = rateLimit({
@@ -24,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // userlist route Demo
 app.use("/api/user", userRoute);
+app.use("/seedUser", seedRoute);
 
 // basic route
 app.get("/", (req, res, next) => {
