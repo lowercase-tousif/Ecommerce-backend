@@ -1,7 +1,7 @@
 const express = require("express");
 const userModel = require("../model/userModel");
 const router = express.Router();
-
+const createError = require("http-errors");
 const getUsers = async (req, res, next) => {
   try {
     // Pagination and Search
@@ -33,9 +33,18 @@ const getUsers = async (req, res, next) => {
     // total number of documents
     const count = await userModel.find(filter, options).countDocuments();
 
+    // If no users found then
+    if (!users) throw createError(404, "no users found");
+
     res.status(200).json({
       message: "User fetched",
       users: users,
+      pagination: {
+        totalPage: Math.ceil(count / limit),
+        currentPage: page,
+        prevPage: page - 1 > 0 ? page - 1 : null,
+        nextPage: page - 1 > 0 ? page + 1 : null,
+      },
     });
   } catch (error) {
     next(error);
