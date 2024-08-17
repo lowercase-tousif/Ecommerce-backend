@@ -25,7 +25,14 @@ const getUsers = async (req, res, next) => {
     // no password return
     const options = { password: 0 };
 
-    const users = await userModel.find(filter, options);
+    const users = await userModel
+      .find(filter, options)
+      .limit(limit)
+      .skip((page - 1) * limit);
+
+    // total number of documents
+    const count = await userModel.find(filter, options).countDocuments();
+
     res.status(200).json({
       message: "User fetched",
       users: users,
