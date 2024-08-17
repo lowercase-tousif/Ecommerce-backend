@@ -7,7 +7,7 @@ const getUsers = async (req, res, next) => {
     // Pagination and Search
     const search = req.query.search || "";
     const page = Number(req.query.page) || 1;
-    const limit = Number(req.query.limit) || 5;
+    const limit = Number(req.query.limit) || 1;
 
     // Regular Expression to get users
     const searchRegularExpression = new RegExp(".*" + search + ".*", "i");
@@ -43,7 +43,7 @@ const getUsers = async (req, res, next) => {
         totalPage: Math.ceil(count / limit),
         currentPage: page,
         prevPage: page - 1 > 0 ? page - 1 : null,
-        nextPage: page - 1 > 0 ? page + 1 : null,
+        nextPage: page + 1 <= Math.ceil(count / limit) ? page + 1 : null,
       },
     });
   } catch (error) {
