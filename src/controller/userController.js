@@ -22,7 +22,10 @@ const getUsers = async (req, res, next) => {
       ],
     };
 
-    const users = await userModel.find(filter);
+    // no password return
+    const options = { password: 0 };
+
+    const users = await userModel.find(filter, options);
     res.status(200).json({
       message: "User fetched",
       users: users,
